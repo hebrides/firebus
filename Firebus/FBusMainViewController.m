@@ -151,11 +151,16 @@
         if(busView) {
             CLLocationCoordinate2D newCoord = CLLocationCoordinate2DMake([[newMetadata objectForKey:@"lat"] doubleValue], [[newMetadata objectForKey:@"lon"] doubleValue]);
             MKMapPoint mapPoint = MKMapPointForCoordinate(newCoord);
-                        
+            
             CGPoint toPos;
-            CGFloat zoomFactor =  self.map.visibleMapRect.size.width / self.map.bounds.size.width;
-            toPos.x = mapPoint.x/zoomFactor;
-            toPos.y = mapPoint.y/zoomFactor;
+            if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
+                toPos = [self.map convertCoordinate:newCoord toPointToView:self.map];
+            } else {
+                CGFloat zoomFactor =  self.map.visibleMapRect.size.width / self.map.bounds.size.width;
+                toPos.x = mapPoint.x/zoomFactor;
+                toPos.y = mapPoint.y/zoomFactor;
+            }
+
             
             if (MKMapRectContainsPoint(self.map.visibleMapRect, mapPoint)) {
                 CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
