@@ -50,7 +50,7 @@
  */
 - (void) setupFirebaseCallbacks {
     // Register for changes on connection state
-    Firebase* firebusRoot = [[Firebase alloc] initWithUrl:@"https://firebus.firebaseio.com/"];
+    Firebase* firebusRoot = [[Firebase alloc] initWithUrl:@"https://publicdata-transit.firebaseio.com/"];
     [[firebusRoot childByAppendingPath:@"/.info/connected"] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         if(![snapshot.value boolValue]) {
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -58,7 +58,7 @@
     }];
     
     // Observe for when buses are added
-    Firebase* firebusSf = [firebusRoot childByAppendingPath:@"sf-muni"];
+    Firebase* firebusSf = [firebusRoot childByAppendingPath:@"sf-muni/vehicles"];
     [firebusSf observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self addBusToMap:snapshot.value withId:snapshot.name];
@@ -100,7 +100,8 @@
         MKPointAnnotation *busPin = busMetadata.pin;
         NSDictionary *metadata = busMetadata.metadata;
         
-        double age = [[NSDate date] timeIntervalSince1970] - [[metadata objectForKey:@"ts"] doubleValue];
+        double timestamp = [[metadata objectForKey:@"timestamp"] doubleValue] / 1000.0;
+        double age = [[NSDate date] timeIntervalSince1970] - timestamp;
         double alpha = (age > 60) ? 0.01 : (1.0 - (age / 60.0)); // ghost bus if GPS is stale
         
         MKAnnotationView* busView = [self.map viewForAnnotation:busPin];
