@@ -50,7 +50,7 @@
  */
 - (void) setupFirebaseCallbacks {
     // Register for changes on connection state
-    Firebase* firebusRoot = [[Firebase alloc] initWithUrl:@"https://bfot.firebaseio.com/"];
+    Firebase* firebusRoot = [[Firebase alloc] initWithUrl:@"https://publicdata-transit.firebaseio.com/"];
     [[firebusRoot childByAppendingPath:@"/.info/connected"] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         if(![snapshot.value boolValue]) {
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -102,8 +102,7 @@
         
         double timestamp = [[metadata objectForKey:@"timestamp"] doubleValue] / 1000.0;
         double age = [[NSDate date] timeIntervalSince1970] - timestamp;
-        double alpha = (age > 120) ? 0.01 : (1.0 - (age / 120.0)); // ghost bus if GPS is stale
-        alpha = 1;
+        double alpha = (age > 60) ? 0.01 : (1.0 - (age / 60.0)); // ghost bus if GPS is stale
         
         MKAnnotationView* busView = [self.map viewForAnnotation:busPin];
         
