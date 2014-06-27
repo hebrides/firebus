@@ -72,6 +72,7 @@ class MainViewController : UIViewController, FlipsideViewControllerDelegate, MKM
         })
     }
     
+    /* Helper function to turn a snapshot into a dictionary for easier access */
     func snapshotToDictionary(snapshot: FDataSnapshot) -> Dictionary<String, Any> {
         var d = Dictionary<String, Any>()
         
@@ -157,6 +158,11 @@ class MainViewController : UIViewController, FlipsideViewControllerDelegate, MKM
         })
     }
     
+    /* Animates a bus. This is technically broken (try panning the map). 
+     * StackOverflow has some questions (but no answers) to this problem.
+     * http://stackoverflow.com/questions/24408099/move-animation-of-mkannotationview-in-mkmapview-is-not-working-propertly-ios7
+    * http://stackoverflow.com/questions/19268080/car-annotation-animation-like-uber-app-not-working
+    */
     func animateBus(busMetadata:Metadata, toNewPosition newMetadata:Dictionary<String, Any>) {
         dispatch_async(dispatch_get_main_queue(), {
             let busPin = busMetadata.pin
