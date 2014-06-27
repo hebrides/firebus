@@ -50,7 +50,7 @@
  */
 - (void) setupFirebaseCallbacks {
     // Register for changes on connection state
-    Firebase* firebusRoot = [[Firebase alloc] initWithUrl:@"https://firebus.firebaseio.com/"];
+    Firebase* firebusRoot = [[Firebase alloc] initWithUrl:@"https://publicdata-transit.firebaseio.com/"];
     [[firebusRoot childByAppendingPath:@"/.info/connected"] observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         if(![snapshot.value boolValue]) {
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -58,7 +58,7 @@
     }];
     
     // Observe for when buses are added
-    Firebase* firebusSf = [firebusRoot childByAppendingPath:@"sf-muni"];
+    Firebase* firebusSf = [firebusRoot childByAppendingPath:@"sf-muni/vehicles"];
     [firebusSf observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self addBusToMap:snapshot.value withId:snapshot.name];
@@ -100,8 +100,9 @@
         MKPointAnnotation *busPin = busMetadata.pin;
         NSDictionary *metadata = busMetadata.metadata;
         
-        double age = [[NSDate date] timeIntervalSince1970] - [[metadata objectForKey:@"ts"] doubleValue];
-        double alpha = (age > 60) ? 0.01 : (1.0 - (age / 60.0)); // ghost bus if GPS is stale
+        double timestamp = [[metadata objectForKey:@"timestamp"] doubleValue] / 1000.0;
+        double age = [[NSDate date] timeIntervalSince1970] - timestamp;
+        double alpha = (age > 120) ? 0.01 : (1.0 - (age / 120.0)); // ghost bus if GPS is stale
         
         MKAnnotationView* busView = [self.map viewForAnnotation:busPin];
         
@@ -150,12 +151,16 @@
         if(busView) {
             CLLocationCoordinate2D newCoord = CLLocationCoordinate2DMake([[newMetadata objectForKey:@"lat"] doubleValue], [[newMetadata objectForKey:@"lon"] doubleValue]);
             MKMapPoint mapPoint = MKMapPointForCoordinate(newCoord);
-                        
-            CGPoint toPos;
-            CGFloat zoomFactor =  self.map.visibleMapRect.size.width / self.map.bounds.size.width;
-            toPos.x = mapPoint.x/zoomFactor;
-            toPos.y = mapPoint.y/zoomFactor;
             
+            CGPoint toPos;
+            if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
+                toPos = [self.map convertCoordinate:newCoord toPointToView:self.map];
+            } else {
+                CGFloat zoomFactor =  self.map.visibleMapRect.size.width / self.map.bounds.size.width;
+                toPos.x = mapPoint.x/zoomFactor;
+                toPos.y = mapPoint.y/zoomFactor;
+            }
+
             if (MKMapRectContainsPoint(self.map.visibleMapRect, mapPoint)) {
                 CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
                 animation.fromValue = [NSValue valueWithCGPoint:busView.center];
@@ -164,7 +169,7 @@
                 animation.delegate = busView;
                 animation.fillMode = kCAFillModeForwards;
                 [busView.layer addAnimation:animation forKey:@"positionAnimation"];
-            }	
+            }
             
             busView.center = toPos;
             busMetadata.metadata = newMetadata;
