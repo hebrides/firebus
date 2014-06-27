@@ -102,7 +102,7 @@
         
         double timestamp = [[metadata objectForKey:@"timestamp"] doubleValue] / 1000.0;
         double age = [[NSDate date] timeIntervalSince1970] - timestamp;
-        double alpha = (age > 60) ? 0.01 : (1.0 - (age / 60.0)); // ghost bus if GPS is stale
+        double alpha = (age > 120) ? 0.01 : (1.0 - (age / 120.0)); // ghost bus if GPS is stale
         
         MKAnnotationView* busView = [self.map viewForAnnotation:busPin];
         
@@ -151,16 +151,17 @@
         if(busView) {
             CLLocationCoordinate2D newCoord = CLLocationCoordinate2DMake([[newMetadata objectForKey:@"lat"] doubleValue], [[newMetadata objectForKey:@"lon"] doubleValue]);
             MKMapPoint mapPoint = MKMapPointForCoordinate(newCoord);
-                        
+            
             CGPoint toPos;
-            CGFloat zoomFactor =  self.map.visibleMapRect.size.width / self.map.bounds.size.width;
-            toPos.x = mapPoint.x/zoomFactor;
-            toPos.y = mapPoint.y/zoomFactor;
-            NSLog(@"(%f %f)", self.map.visibleMapRect.size.width, self.map.bounds.size.width);
-            NSLog(@"(%f %f) (%f %f) (%f %f) (%f %f)", newCoord.latitude, newCoord.longitude, mapPoint.x, mapPoint.y, toPos.x, toPos.y, busView.center.x, busView.center.y);
+            if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
+                toPos = [self.map convertCoordinate:newCoord toPointToView:self.map];
+            } else {
+                CGFloat zoomFactor =  self.map.visibleMapRect.size.width / self.map.bounds.size.width;
+                toPos.x = mapPoint.x/zoomFactor;
+                toPos.y = mapPoint.y/zoomFactor;
+            }
 
             if (MKMapRectContainsPoint(self.map.visibleMapRect, mapPoint)) {
-                NSLog(@"Animating actually %@ %@", busMetadata.metadata[@"id"], busMetadata.metadata[@"routeTag"]);
                 CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
                 animation.fromValue = [NSValue valueWithCGPoint:busView.center];
                 animation.toValue = [NSValue valueWithCGPoint:toPos];

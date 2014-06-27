@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F4F0DC0195A053A0010ABF7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4F0DBF195A053A0010ABF7 /* AppDelegate.swift */; };
+		5FD346251958D1B500E7DAE3 /* PointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD346241958D1B500E7DAE3 /* PointAnnotation.swift */; };
+		5FD346271958D2D900E7DAE3 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD346261958D2D900E7DAE3 /* ImageUtils.swift */; };
+		5FD3462B1958D91800E7DAE3 /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD3462A1958D91800E7DAE3 /* Metadata.swift */; };
+		5FD3462D1958D97C00E7DAE3 /* FlipsideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD3462C1958D97C00E7DAE3 /* FlipsideViewController.swift */; };
+		5FD3462F1958E13300E7DAE3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD3462E1958E13300E7DAE3 /* MainViewController.swift */; };
+		5FE9B66B195CC2AF0093DBE0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDE26E7916E6C267006A4A80 /* Foundation.framework */; };
+		5FE9B66D195CC3120093DBE0 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FE9B66C195CC3120093DBE0 /* libc++.dylib */; };
+		5FE9B66F195CC32E0093DBE0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FE9B66E195CC32E0093DBE0 /* SystemConfiguration.framework */; };
 		ED08D3C51725B4E8007E6D2D /* FBusImageUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ED08D3C41725B4E8007E6D2D /* FBusImageUtils.m */; };
 		ED08D3C81725BC93007E6D2D /* FBusPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = ED08D3C71725BC93007E6D2D /* FBusPointAnnotation.m */; };
 		ED0FA55216E7CED80071104B /* FBusMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = ED0FA55116E7CED80071104B /* FBusMetadata.m */; };
@@ -16,7 +25,6 @@
 		EDCE3C0816EA727300462B5B /* firebase-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDCE3C0616EA727300462B5B /* firebase-logo@2x.png */; };
 		EDCE3C0916EA727300462B5B /* firebase-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = EDCE3C0716EA727300462B5B /* firebase-logo.png */; };
 		EDE26E7816E6C267006A4A80 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDE26E7716E6C267006A4A80 /* UIKit.framework */; };
-		EDE26E7A16E6C267006A4A80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDE26E7916E6C267006A4A80 /* Foundation.framework */; };
 		EDE26E7C16E6C267006A4A80 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDE26E7B16E6C267006A4A80 /* CoreGraphics.framework */; };
 		EDE26E8216E6C267006A4A80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EDE26E8016E6C267006A4A80 /* InfoPlist.strings */; };
 		EDE26E8416E6C267006A4A80 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE26E8316E6C267006A4A80 /* main.m */; };
@@ -50,6 +58,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		5F4F0DC1195A07F80010ABF7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EDE26E6C16E6C267006A4A80 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EDE26E7316E6C267006A4A80;
+			remoteInfo = Firebus;
+		};
 		EDE26EA816E6C267006A4A80 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EDE26E6C16E6C267006A4A80 /* Project object */;
@@ -60,6 +75,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5F4F0DBF195A053A0010ABF7 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5FD346231958D1B400E7DAE3 /* Firebus-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Firebus-Bridging-Header.h"; sourceTree = "<group>"; };
+		5FD346241958D1B500E7DAE3 /* PointAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointAnnotation.swift; sourceTree = "<group>"; };
+		5FD346261958D2D900E7DAE3 /* ImageUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
+		5FD3462A1958D91800E7DAE3 /* Metadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Metadata.swift; sourceTree = "<group>"; };
+		5FD3462C1958D97C00E7DAE3 /* FlipsideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipsideViewController.swift; sourceTree = "<group>"; };
+		5FD3462E1958E13300E7DAE3 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		5FE9B66C195CC3120093DBE0 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		5FE9B66E195CC32E0093DBE0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		ED08D3C31725B4E8007E6D2D /* FBusImageUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBusImageUtils.h; sourceTree = "<group>"; };
 		ED08D3C41725B4E8007E6D2D /* FBusImageUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBusImageUtils.m; sourceTree = "<group>"; };
 		ED08D3C61725BC93007E6D2D /* FBusPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBusPointAnnotation.h; sourceTree = "<group>"; };
@@ -121,6 +145,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FE9B66F195CC32E0093DBE0 /* SystemConfiguration.framework in Frameworks */,
+				5FE9B66D195CC3120093DBE0 /* libc++.dylib in Frameworks */,
+				5FE9B66B195CC2AF0093DBE0 /* Foundation.framework in Frameworks */,
 				ED0FA55416E7DA040071104B /* QuartzCore.framework in Frameworks */,
 				EDE26EC616E6DB62006A4A80 /* CoreLocation.framework in Frameworks */,
 				EDE26EC416E6CC0B006A4A80 /* MapKit.framework in Frameworks */,
@@ -128,7 +155,6 @@
 				EDE26EC016E6C7E7006A4A80 /* Security.framework in Frameworks */,
 				EDE26EBE16E6C7DF006A4A80 /* CFNetwork.framework in Frameworks */,
 				EDE26E7816E6C267006A4A80 /* UIKit.framework in Frameworks */,
-				EDE26E7A16E6C267006A4A80 /* Foundation.framework in Frameworks */,
 				EDE26E7C16E6C267006A4A80 /* CoreGraphics.framework in Frameworks */,
 				EDA0F11816F6A83C00165FE3 /* Firebase.framework in Frameworks */,
 			);
@@ -189,6 +215,8 @@
 		EDE26E7616E6C267006A4A80 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5FE9B66E195CC32E0093DBE0 /* SystemConfiguration.framework */,
+				5FE9B66C195CC3120093DBE0 /* libc++.dylib */,
 				EDA0F11716F6A83C00165FE3 /* Firebase.framework */,
 				ED0FA55316E7DA040071104B /* QuartzCore.framework */,
 				EDE26EC516E6DB62006A4A80 /* CoreLocation.framework */,
@@ -210,22 +238,29 @@
 				ED0FA55616E83C380071104B /* Assets */,
 				EDE26E8616E6C267006A4A80 /* FBusAppDelegate.h */,
 				EDE26E8716E6C267006A4A80 /* FBusAppDelegate.m */,
+				5F4F0DBF195A053A0010ABF7 /* AppDelegate.swift */,
 				EDE26E8F16E6C267006A4A80 /* FBusMainViewController.h */,
 				EDE26E9016E6C267006A4A80 /* FBusMainViewController.m */,
 				EDE26E9216E6C267006A4A80 /* FBusFlipsideViewController.h */,
 				EDE26E9316E6C267006A4A80 /* FBusFlipsideViewController.m */,
+				5FD3462C1958D97C00E7DAE3 /* FlipsideViewController.swift */,
 				EDE26E9516E6C267006A4A80 /* FBusMainViewController_iPhone.xib */,
 				EDE26E9816E6C267006A4A80 /* FBusMainViewController_iPad.xib */,
 				EDE26E9B16E6C267006A4A80 /* FBusFlipsideViewController.xib */,
 				ED0FA55016E7CED80071104B /* FBusMetadata.h */,
 				ED0FA55116E7CED80071104B /* FBusMetadata.m */,
+				5FD3462A1958D91800E7DAE3 /* Metadata.swift */,
 				ED52735E16E9AD3A00E51322 /* MBProgressHUD.h */,
 				ED52735F16E9AD3A00E51322 /* MBProgressHUD.m */,
 				ED08D3C31725B4E8007E6D2D /* FBusImageUtils.h */,
 				ED08D3C41725B4E8007E6D2D /* FBusImageUtils.m */,
+				5FD346261958D2D900E7DAE3 /* ImageUtils.swift */,
 				ED08D3C61725BC93007E6D2D /* FBusPointAnnotation.h */,
+				5FD346241958D1B500E7DAE3 /* PointAnnotation.swift */,
 				ED08D3C71725BC93007E6D2D /* FBusPointAnnotation.m */,
 				EDE26E7E16E6C267006A4A80 /* Supporting Files */,
+				5FD346231958D1B400E7DAE3 /* Firebus-Bridging-Header.h */,
+				5FD3462E1958E13300E7DAE3 /* MainViewController.swift */,
 			);
 			path = Firebus;
 			sourceTree = "<group>";
@@ -296,11 +331,12 @@
 			);
 			dependencies = (
 				EDE26EA916E6C267006A4A80 /* PBXTargetDependency */,
+				5F4F0DC2195A07F80010ABF7 /* PBXTargetDependency */,
 			);
 			name = FirebusTests;
 			productName = FirebusTests;
 			productReference = EDE26EA316E6C267006A4A80 /* FirebusTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -311,6 +347,11 @@
 				CLASSPREFIX = FBus;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = Firebase;
+				TargetAttributes = {
+					EDE26EA216E6C267006A4A80 = {
+						TestTargetID = EDE26E7316E6C267006A4A80;
+					};
+				};
 			};
 			buildConfigurationList = EDE26E6F16E6C267006A4A80 /* Build configuration list for PBXProject "Firebus" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -387,12 +428,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				EDE26E8416E6C267006A4A80 /* main.m in Sources */,
+				5FD3462F1958E13300E7DAE3 /* MainViewController.swift in Sources */,
+				5FD346251958D1B500E7DAE3 /* PointAnnotation.swift in Sources */,
 				EDE26E8816E6C267006A4A80 /* FBusAppDelegate.m in Sources */,
+				5F4F0DC0195A053A0010ABF7 /* AppDelegate.swift in Sources */,
+				5FD346271958D2D900E7DAE3 /* ImageUtils.swift in Sources */,
 				EDE26E9116E6C267006A4A80 /* FBusMainViewController.m in Sources */,
 				EDE26E9416E6C267006A4A80 /* FBusFlipsideViewController.m in Sources */,
 				ED0FA55216E7CED80071104B /* FBusMetadata.m in Sources */,
+				5FD3462B1958D91800E7DAE3 /* Metadata.swift in Sources */,
 				ED52736016E9AD3A00E51322 /* MBProgressHUD.m in Sources */,
 				ED08D3C51725B4E8007E6D2D /* FBusImageUtils.m in Sources */,
+				5FD3462D1958D97C00E7DAE3 /* FlipsideViewController.swift in Sources */,
 				ED08D3C81725BC93007E6D2D /* FBusPointAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -408,6 +455,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		5F4F0DC2195A07F80010ABF7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EDE26E7316E6C267006A4A80 /* Firebus */;
+			targetProxy = 5F4F0DC1195A07F80010ABF7 /* PBXContainerItemProxy */;
+		};
 		EDE26EA916E6C267006A4A80 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EDE26E7316E6C267006A4A80 /* Firebus */;
@@ -520,6 +572,7 @@
 		EDE26EB616E6C267006A4A80 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../../../../Library/Developer/Xcode/DerivedData/Firebase-ezgunhcbgcgeocbeydovmmjdksxa/Build/Products/Debug-iphoneos\"",
@@ -529,8 +582,11 @@
 				GCC_PREFIX_HEADER = "Firebus/Firebus-Prefix.pch";
 				INFOPLIST_FILE = "Firebus/Firebus-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Firebus/Firebus-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -538,6 +594,7 @@
 		EDE26EB716E6C267006A4A80 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Envolve, Inc.";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -548,9 +605,11 @@
 				GCC_PREFIX_HEADER = "Firebus/Firebus-Prefix.pch";
 				INFOPLIST_FILE = "Firebus/Firebus-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "C9AF0D5A-94D1-43C3-BDFC-633862BD23E2";
+				SWIFT_OBJC_BRIDGING_HEADER = "Firebus/Firebus-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
