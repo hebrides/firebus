@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) UIPopoverController *flipsidePopoverController;
 @property (strong, nonatomic) NSMutableDictionary *busLocations;
+@property (strong, nonatomic) CLLocationManager *locMgr;
 @property (weak, nonatomic) IBOutlet MKMapView *map;
 
 - (IBAction)showInfo:(id)sender;

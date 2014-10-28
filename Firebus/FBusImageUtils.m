@@ -16,7 +16,7 @@
     NSString* busText = [NSString stringWithFormat:@" %@ %@ ", [FBusImageUtils getEmojiForRoute:vtype], text];
     // set the font type and size
     UIFont *font = [UIFont systemFontOfSize:17.0];
-    CGSize size  = [busText sizeWithFont:font];
+    CGSize size  = [busText sizeWithAttributes:@{NSFontAttributeName: font}];
     
     UIGraphicsBeginImageContextWithOptions(size,YES,0.0);
     
@@ -34,8 +34,8 @@
     // Foreground
     CGContextSetRGBStrokeColor(ctx, 0.9, 0.9, 0.9, 1.0);
     CGContextSetRGBFillColor(ctx, 1, 1, 1, 1.0);
-
-    [busText drawAtPoint:CGPointMake(0.0, 0.0) withFont:font];
+    
+    [busText drawAtPoint:CGPointMake(0.0, 0.0) withAttributes:@{NSFontAttributeName: font}];
     
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();

@@ -12,14 +12,26 @@ import CoreLocation
 import QuartzCore
 
 class MainViewController : UIViewController, FlipsideViewControllerDelegate, MKMapViewDelegate {
+
     var flipsidePopoverController : UIPopoverController?
     var busLocations : Dictionary<Int, Metadata> = [:]
-    @IBOutlet var map: MKMapView
+    var locMgr = CLLocationManager()
+    
+    @IBOutlet var map: MKMapView!
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        locMgr.requestWhenInUseAuthorization()
         busLocations = [:]
+        map.showsUserLocation = false
         map.delegate = self
         moveMapToSF()
         setupOpacityTimer()
@@ -39,7 +51,7 @@ class MainViewController : UIViewController, FlipsideViewControllerDelegate, MKM
     func setupFirebaseCallbacks() {
         // Register for changes on connection state
         var firebusRoot = Firebase(url: "https://publicdata-transit.firebaseio.com/")
-        firebusRoot.childByAppendingPath("/.info/connected").observeEventType(FEventTypeValue, withBlock: { snapshot in
+        firebusRoot.childByAppendingPath("/.info/connected").observeEventType(FEventType.Value, withBlock: { snapshot in
             if !snapshot.value.boolValue {
                 MBProgressHUD.showHUDAddedTo(self.view, animated: true)
             }
@@ -47,14 +59,14 @@ class MainViewController : UIViewController, FlipsideViewControllerDelegate, MKM
         
         // Observe when buses are added
         var firebusSF = firebusRoot.childByAppendingPath("sf-muni/vehicles")
-        firebusSF.observeEventType(FEventTypeChildAdded, withBlock: {
+        firebusSF.observeEventType(FEventType.ChildAdded, withBlock: {
             snapshot in
             let bus = self.snapshotToDictionary(snapshot)
             MBProgressHUD.hideHUDForView(self.view, animated: true)
             self.addBusToMap(bus, key:snapshot.name.toInt()!);
         })
         // ... and changed
-        firebusSF.observeEventType(FEventTypeChildChanged, withBlock: {
+        firebusSF.observeEventType(FEventType.ChildChanged, withBlock: {
             snapshot in
             let bus = self.snapshotToDictionary(snapshot)
             if let busMetadata = self.busLocations[snapshot.name.toInt()!] {
@@ -63,7 +75,7 @@ class MainViewController : UIViewController, FlipsideViewControllerDelegate, MKM
         })
         
         // Observe when buses are removed
-        firebusSF.observeEventType(FEventTypeChildRemoved, withBlock: {
+        firebusSF.observeEventType(FEventType.ChildRemoved, withBlock: {
             snapshot in
             if let busMetadata = self.busLocations[snapshot.name.toInt()!] {
                 self.busLocations.removeValueForKey(snapshot.name.toInt()!)
@@ -87,7 +99,7 @@ class MainViewController : UIViewController, FlipsideViewControllerDelegate, MKM
         d["timestamp"] = snapshot.value.objectForKey("timestamp") as Double
         d["vtype"] = snapshot.value.objectForKey("vtype") as String
         
-        if snapshot.value.objectForKey("dirTag") {
+        if (snapshot.value.objectForKey("dirTag") != nil) {
             d["dirTag"] = snapshot.value.objectForKey("dirTag") as String // Sometimes missing
         } else {
             d["dirTag"] = "OB"
@@ -135,23 +147,22 @@ class MainViewController : UIViewController, FlipsideViewControllerDelegate, MKM
         }
     }
     
-    func addBusToMap(bus: Dictionary<String, Any>, key: Int) {
+    func addBusToMap(bus: Dictionary<String, Any>?, key: Int) {
         dispatch_async(dispatch_get_main_queue(), {
-            if bus != nil && self.busLocations[key] == nil {
+            if (bus != nil && self.busLocations.indexForKey(key) == nil) {
                 // Set up the bus annotation
                 let busPin = PointAnnotation()
-                busPin.setCoordinate(CLLocationCoordinate2DMake(bus["lat"] as Double, bus["lon"] as Double))
-                busPin.title = bus["routeTag"] as String
+                busPin.setCoordinate(CLLocationCoordinate2DMake(bus!["lat"] as Double, bus!["lon"] as Double))
+                busPin.title = bus!["routeTag"] as String
                 busPin.key = String(key)
-                busPin.route = bus["routeTag"] as String
-                busPin.vtype = bus["vtype"] as String
+                busPin.route = bus!["routeTag"] as String
+                busPin.vtype = bus!["vtype"] as String
                 
                 // Checking containsString is hard in Swift, so bridge to ObjC
-                let dirTag = (bus["dirTag"] as String).bridgeToObjectiveC()
-                busPin.outbound = dirTag.rangeOfString("OB").location != Foundation.NSNotFound
-                
+                let dirTag = bus!["dirTag"] as String
+                busPin.outbound = dirTag.rangeOfString("OB") != nil
                 // Create metadata and save to map and locations
-                let busMetadata = Metadata(metadata:bus, pin:busPin)
+                let busMetadata = Metadata(metadata:bus!, pin:busPin)
                 self.map.addAnnotation(busPin)
                 self.busLocations[key] = busMetadata
             }
@@ -205,7 +216,7 @@ class MainViewController : UIViewController, FlipsideViewControllerDelegate, MKM
             controller.modalTransitionStyle = .FlipHorizontal
             self.presentViewController(controller, animated: true, completion: nil)
         } else {
-            if !flipsidePopoverController {
+            if !(flipsidePopoverController != nil) {
                 let controller = FlipsideViewController(nibName: "FBusFlipsideViewController", bundle: nil)
                 controller.delegate = self
                 flipsidePopoverController = UIPopoverController(contentViewController: controller)
@@ -225,7 +236,7 @@ class MainViewController : UIViewController, FlipsideViewControllerDelegate, MKM
         if let busAnnotation = annotation as? PointAnnotation {
             pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(busAnnotation.key)
             
-            if !pinView {
+            if !(pinView != nil) {
                 pinView = MKAnnotationView(annotation: annotation, reuseIdentifier: busAnnotation.key)
             }
             

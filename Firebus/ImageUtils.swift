@@ -34,7 +34,7 @@ class ImageUtils {
         CGContextSetRGBFillColor(ctx, 1, 1, 1, 1.0)
         
         // ??? I can I do this with swift string
-        nsBusText.drawAtPoint(CGPointMake(0.0, 0.0), withFont: font)
+        nsBusText.drawAtPoint(CGPointMake(0.0, 0.0), withAttributes: ["font" : font])
         
         var image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()

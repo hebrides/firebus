@@ -23,10 +23,16 @@
 
 @synthesize busLocations;
 @synthesize map;
+@synthesize locMgr;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.locMgr = [[CLLocationManager alloc] init];
+    if ([self.locMgr respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [self.locMgr requestWhenInUseAuthorization];
+    }
     
     self.busLocations = [[NSMutableDictionary alloc] init];
     self.map.delegate = self;

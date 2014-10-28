@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Firebase. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-@interface FirebusTests : SenTestCase
+@interface FirebusTests : XCTestCase
 
 @end

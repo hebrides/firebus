@@ -9,17 +9,21 @@
 import Foundation
 import UIKit
 
-@class_protocol protocol FlipsideViewControllerDelegate {
+protocol FlipsideViewControllerDelegate: class {
     func flipsideViewControllerDidFinish(controller:FlipsideViewController);
 }
 
 class FlipsideViewController : UIViewController {
     weak var delegate : FlipsideViewControllerDelegate?
     
-    init(nibName: String?, bundle:NSBundle?) {
+    override init(nibName: String?, bundle:NSBundle?) {
         super.init(nibName: nibName, bundle: bundle)
         // !!! took out check for self != nil
-        self.contentSizeForViewInPopover = CGSizeMake(320.0, 480.0)
+        self.preferredContentSize = CGSizeMake(320.0, 480.0)
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     @IBAction func done(AnyObject) {
@@ -27,6 +31,6 @@ class FlipsideViewController : UIViewController {
     }
     
     @IBAction func github(AnyObject) {
-        UIApplication.sharedApplication().openURL(NSURL.URLWithString("https://github.com/firebase/firebus"))
+        UIApplication.sharedApplication().openURL(NSURL(string:"https://github.com/firebase/firebus")!)
     }
 }
